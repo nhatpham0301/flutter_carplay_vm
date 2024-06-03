@@ -189,6 +189,12 @@ enum FCPChannelTypes {
   /// Event for clear all annotation on the map view in CarPlay.
   clearListSubMap,
 
+  /// Event for scroll up annotation on the map view in CarPlay.
+  scrollUpListSubMap,
+
+  /// Event for scroll down annotation on the map view in CarPlay.
+  scrollDownListSubMap,
+
   /// Event for add marker on the map view in CarPlay.
   addMarkerToMap,
 

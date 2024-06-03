@@ -218,14 +218,24 @@ class CPMapTemplate {
     FlutterCarplayController.recenterMapView(uniqueId);
   }
 
-  /// add list pick-drop user on the [CPMapTemplate]
+  /// add list sub map on the [CPMapTemplate]
   void addMapList({required List<CPMapList> data}) {
     FlutterCarplayController.addMapList(uniqueId, data: data);
   }
 
-  /// clear list pick-drop user on the [CPMapTemplate]
+  /// clear list sub map on the [CPMapTemplate]
   void clearMapList() {
     FlutterCarplayController.clearMapList(uniqueId);
+  }
+
+  /// scroll up list sub map on the [CPMapTemplate]
+  void scrollUpMapList() {
+    FlutterCarplayController.scrollUpMapList(uniqueId);
+  }
+
+  /// scroll down list sub map on the [CPMapTemplate]
+  void scrollDownMapList() {
+    FlutterCarplayController.scrollDownMapList(uniqueId);
   }
 
   /// add marker on the [CPMapTemplate]

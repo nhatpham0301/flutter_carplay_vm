@@ -109,7 +109,8 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     
     func centerMap() {
         if let coordinate = mapView.userLocation?.coordinate {
-            mapView.setCenter(coordinate, animated: true)
+            let camera = MGLMapCamera(lookingAtCenter: coordinate, altitude: 250, pitch: mapView.camera.pitch, heading: mapView.camera.heading)
+            mapView.setCamera(camera, animated: true)
         }
     }
     
@@ -138,13 +139,37 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     
     func addMapList(data: [FCPMapListModel]) {
         mapView.frame = CGRect(x: 300, y: 0, width: view.frame.width - 300, height: view.frame.height)
-        listViewMap = FCPMapListController(data: data)
+        listViewMap = FCPMapListController(data: data, heightBounds: view.frame.height)
         if let listViewMap = listViewMap {
             listViewMap.view.frame = CGRect(x: 0, y: 0, width: 300, height: view.frame.height)
+            listViewMap.view.backgroundColor = UIColor.white
             listViewMap.viewRespectsSystemMinimumLayoutMargins = false
             addChild(listViewMap)
             view.addSubview(listViewMap.view)
             listViewMap.didMove(toParent: self)
+        }
+    }
+    
+    func scrollUpSubList() {
+        DispatchQueue.main.async {
+            guard let listViewMap = self.listViewMap else {return}
+            let currentOffset = listViewMap.tableView.contentOffset.y
+            let newOffset = max(currentOffset - listViewMap.heightCell, 0)
+            listViewMap.tableView.setContentOffset(CGPoint(x: 0, y: newOffset), animated: true)
+        }
+    }
+    
+    func scrollDownSubList() {
+        DispatchQueue.main.async {
+            guard let listViewMap = self.listViewMap else {return}
+            guard listViewMap.tableView.contentSize.height > listViewMap.tableView.bounds.height else {
+                return
+            }
+            let currentOffset = listViewMap.tableView.contentOffset.y
+            let maxOffset = listViewMap.tableView.contentSize.height - listViewMap.tableView.bounds.height
+            let newOffset = min(currentOffset + listViewMap.heightCell, maxOffset)
+            listViewMap.tableView.setContentOffset(CGPoint(x: 0, y: newOffset), animated: true)
+            
         }
     }
     

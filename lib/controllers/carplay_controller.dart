@@ -241,6 +241,26 @@ class FlutterCarplayController {
     );
   }
 
+  /// scroll up sub list on the map view on the [CPMapTemplate].
+  static void scrollUpMapList(String elementId) {
+    _methodChannel.invokeMethod(
+      FCPChannelTypes.scrollUpListSubMap.name,
+      {
+        '_elementId': elementId,
+      },
+    );
+  }
+
+  /// scroll down sub list on the map view on the [CPMapTemplate].
+  static void scrollDownMapList(String elementId) {
+    _methodChannel.invokeMethod(
+      FCPChannelTypes.scrollDownListSubMap.name,
+      {
+        '_elementId': elementId,
+      },
+    );
+  }
+
   /// add marker on the map view on the [CPMapTemplate].
   static void addMarker(String elementId, {required List<CPMapPoint> data}) {
     _methodChannel.invokeMethod(

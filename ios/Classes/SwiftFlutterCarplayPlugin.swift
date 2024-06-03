@@ -705,6 +705,36 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
             }
 
             result(false)
+            
+        case FCPChannelTypes.scrollUpListSubMap:
+            guard let args = call.arguments as? [String: Any],
+                  let elementId = args["_elementId"] as? String
+            else {
+                result(false)
+                return
+            }
+            // Find the map template based on the provided element ID
+            SwiftFlutterCarplayPlugin.findMapTemplate(elementId: elementId) { mapTemplate in
+                mapTemplate.fcpMapViewController?.scrollUpSubList()
+                return result(true)
+            }
+
+            result(false)
+
+        case FCPChannelTypes.scrollDownListSubMap:
+            guard let args = call.arguments as? [String: Any],
+                  let elementId = args["_elementId"] as? String
+            else {
+                result(false)
+                return
+            }
+            // Find the map template based on the provided element ID
+            SwiftFlutterCarplayPlugin.findMapTemplate(elementId: elementId) { mapTemplate in
+                mapTemplate.fcpMapViewController?.scrollDownSubList()
+                return result(true)
+            }
+
+            result(false)
 
         case FCPChannelTypes.addMarkerToMap:
             guard let args = call.arguments as? [String: Any],

@@ -9,15 +9,19 @@ class FCPMapListController: UIViewController, UITableViewDelegate, UITableViewDa
     // Định nghĩa nguồn dữ liệu cho table view
     var data: [FCPMapListModel]
     
+    var heightBounds: Double
+    
     // Khởi tạo tùy chỉnh nhận dữ liệu
-    init(data: [FCPMapListModel]) {
+    init(data: [FCPMapListModel], heightBounds: Double) {
         self.data = data
+        self.heightBounds = heightBounds
         super.init(nibName: nil, bundle: nil)
     }
     
     // Khởi tạo bắt buộc từ `UIViewController`
     required init?(coder: NSCoder) {
         self.data = []
+        self.heightBounds = UIScreen.main.bounds.size.width
         super.init(coder: coder)
     }
     
@@ -28,13 +32,16 @@ class FCPMapListController: UIViewController, UITableViewDelegate, UITableViewDa
         // Setup table view
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.frame = CGRect(x: 0, y: 42, width: 300, height: view.frame.height - 42) // Adjust height as needed
+        tableView.frame = CGRect(x: 0, y: 0, width: 300, height: heightBounds) // Adjust height as needed
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = 0.0
         tableView.sectionFooterHeight = 0.0
         tableView.backgroundView = UIView()
         tableView.contentInsetAdjustmentBehavior = .never
+        tableView.bounces = false
+        tableView.alwaysBounceHorizontal = false
+        tableView.contentInset = .zero
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
             UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
@@ -107,6 +114,8 @@ class FCPMapListCell: UITableViewCell {
     let confirmUserPickDrop = UILabel()
     let viewIconPick = UIImageView()
     let viewIconDrop = UIImageView()
+    let sizeIcon: Double = 16
+    let marginTop: Double = 10
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -178,13 +187,13 @@ class FCPMapListCell: UITableViewCell {
 
         // Label time
         topLabel.textColor = UIColor.systemGreen
-        topLabel.font = UIFont.systemFont(ofSize: 16)
+        topLabel.font = UIFont.systemFont(ofSize: 14)
         topLabel.translatesAutoresizingMaskIntoConstraints = false
         secondSubview.addSubview(topLabel)
 
         // Label address
         bottomLabel.textColor = UIColor.black
-        bottomLabel.font = UIFont.systemFont(ofSize: 15)
+        bottomLabel.font = UIFont.systemFont(ofSize: 12)
         bottomLabel.translatesAutoresizingMaskIntoConstraints = false
         bottomLabel.numberOfLines = 2
         secondSubview.addSubview(bottomLabel)
@@ -201,7 +210,7 @@ class FCPMapListCell: UITableViewCell {
         thirdSubview.addSubview(viewIconPick)
 
         totalPick.textColor = UIColor.black
-        totalPick.font = UIFont.systemFont(ofSize: 13)
+        totalPick.font = UIFont.systemFont(ofSize: 12)
         totalPick.translatesAutoresizingMaskIntoConstraints = false
         thirdSubview.addSubview(totalPick)
         
@@ -212,11 +221,11 @@ class FCPMapListCell: UITableViewCell {
 
         
         totalDrop.textColor = UIColor.black
-        totalDrop.font = UIFont.systemFont(ofSize: 13)
+        totalDrop.font = UIFont.systemFont(ofSize: 12)
         totalDrop.translatesAutoresizingMaskIntoConstraints = false
         thirdSubview.addSubview(totalDrop)
 
-        confirmUserPickDrop.font = UIFont.systemFont(ofSize: 13)
+        confirmUserPickDrop.font = UIFont.systemFont(ofSize: 12)
         confirmUserPickDrop.translatesAutoresizingMaskIntoConstraints = false
         thirdSubview.addSubview(confirmUserPickDrop)
 
@@ -255,12 +264,12 @@ class FCPMapListCell: UITableViewCell {
 
             // Top label constraints
             topLabel.leadingAnchor.constraint(equalTo: secondSubview.leadingAnchor, constant: 5),
-            topLabel.topAnchor.constraint(equalTo: secondSubview.topAnchor, constant: 10),
+            topLabel.topAnchor.constraint(equalTo: secondSubview.topAnchor, constant: 20),
             topLabel.trailingAnchor.constraint(equalTo: secondSubview.trailingAnchor),
 
             // Bottom label constraints
             bottomLabel.leadingAnchor.constraint(equalTo: secondSubview.leadingAnchor, constant: 5),
-            bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 10),
+            bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 5),
             bottomLabel.trailingAnchor.constraint(equalTo: secondSubview.trailingAnchor),
 
             // Third subview constraints
@@ -268,23 +277,22 @@ class FCPMapListCell: UITableViewCell {
             thirdSubview.topAnchor.constraint(equalTo: outerView.topAnchor),
             thirdSubview.bottomAnchor.constraint(equalTo: outerView.bottomAnchor),
             thirdSubview.leadingAnchor.constraint(greaterThanOrEqualTo: secondSubview.trailingAnchor, constant: 5),
-
+            
             // Icon pick constraints
-            viewIconPick.leadingAnchor.constraint(equalTo: thirdSubview.leadingAnchor, constant: 5),
             viewIconPick.topAnchor.constraint(equalTo: thirdSubview.topAnchor, constant: 10),
-            viewIconPick.widthAnchor.constraint(equalToConstant: 20),
-            viewIconPick.heightAnchor.constraint(equalToConstant: 20),
+            viewIconPick.widthAnchor.constraint(equalToConstant: sizeIcon),
+            viewIconPick.heightAnchor.constraint(equalToConstant: sizeIcon),
 
             // Total pick label constraints
             totalPick.leadingAnchor.constraint(equalTo: viewIconPick.trailingAnchor, constant: 5),
             totalPick.centerYAnchor.constraint(equalTo: viewIconPick.centerYAnchor),
             totalPick.trailingAnchor.constraint(equalTo: thirdSubview.trailingAnchor, constant: 0),
+
             
             // Icon drop constraints
-            viewIconDrop.leadingAnchor.constraint(equalTo: thirdSubview.leadingAnchor, constant: 5),
-            viewIconDrop.topAnchor.constraint(equalTo: totalPick.bottomAnchor, constant: 10),
-            viewIconDrop.widthAnchor.constraint(equalToConstant: 20),
-            viewIconDrop.heightAnchor.constraint(equalToConstant: 20),
+            viewIconDrop.topAnchor.constraint(equalTo: totalPick.bottomAnchor, constant: 5),
+            viewIconDrop.widthAnchor.constraint(equalToConstant: sizeIcon),
+            viewIconDrop.heightAnchor.constraint(equalToConstant: sizeIcon),
 
             // Total drop label constraints
             totalDrop.leadingAnchor.constraint(equalTo: viewIconDrop.trailingAnchor, constant: 5),

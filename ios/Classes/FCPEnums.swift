@@ -208,6 +208,12 @@ enum FCPChannelTypes {
     /// Event for clear sub view list the map view in CarPlay.
     static let clearListSubMap = "clearListSubMap"
     
+    /// Event for scroll up list sub the map view in CarPlay.
+    static let scrollUpListSubMap = "scrollUpListSubMap"
+    
+    /// Event for scroll down list sub the map view in CarPlay.
+    static let scrollDownListSubMap = "scrollDownListSubMap"
+    
     /// Event for add marker the map view in CarPlay.
     static let addMarkerToMap = "addMarkerToMap"
     

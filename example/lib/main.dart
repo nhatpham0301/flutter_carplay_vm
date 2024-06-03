@@ -33,7 +33,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initialCarPlay();
+    // initialCarPlay();
+    _openMapTemplate();
     _flutterCarplay
       ..forceUpdateRootTemplate()
       ..addListenerOnConnectionChange(onCarplayConnectionChange);
@@ -76,150 +77,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   _openMapTemplate() {
-    final section1Items = <CPListSection>[
-      CPListSection(
-        items: [
-          CPListItem(
-            text: 'Item 1',
-            detailText: 'Detail Text',
-            onPressed: (complete, item) {
-              item.update(
-                detailText: 'You can change the detail text.. 🚀',
-                accessoryType: CPListItemAccessoryTypes.cloud,
-              );
-              Future.delayed(const Duration(seconds: 1), () {
-                item.update(detailText: 'Customizable Detail Text');
-                complete();
-              });
-            },
-            image: 'images/logo_flutter_1080px_clr.png',
-          ),
-          CPListItem(
-            text: 'Item 2',
-            detailText: 'Start progress bar',
-            isPlaying: false,
-            playbackProgress: 0,
-            image: 'images/logo_flutter_1080px_clr.png',
-            onPressed: (complete, self) {
-              for (var i = 1; i <= 100; i++) {
-                sleep(const Duration(milliseconds: 10));
-                self.update(playbackProgress: i / 100);
-                if (i == 100) complete();
-              }
-            },
-          ),
-        ],
-        header: 'First Section',
-      ),
-      CPListSection(
-        items: [
-          CPListItem(
-            text: 'Item 3',
-            detailText: 'Detail Text',
-            onPressed: (complete, item) {
-              item.update(
-                text: 'You can also change the title',
-                detailText: 'and detail text while loading',
-                accessoryType: CPListItemAccessoryTypes.none,
-              );
-              Future.delayed(const Duration(seconds: 1), () {
-                complete();
-              });
-            },
-            accessoryType: CPListItemAccessoryTypes.disclosureIndicator,
-          ),
-          CPListItem(text: 'Item 4', detailText: 'Detail Text'),
-          CPListItem(text: 'Item 5', detailText: 'Detail Text'),
-        ],
-        header: 'Second Section',
-      ),
-    ];
-
-    final section2Items = <CPListSection>[
-      CPListSection(
-        items: [
-          CPListItem(
-            text: 'Voice Control',
-            detailText: 'Displays a voice control indicator during audio input',
-            onPressed: (complete, self) {
-              Future.delayed(Duration.zero, () {
-                showVoiceControl(context);
-                complete();
-              });
-            },
-          ),
-          CPListItem(
-            text: 'Search',
-            detailText: 'Displays a search template',
-            onPressed: (complete, self) {
-              openSearchTemplate();
-              complete();
-            },
-          ),
-          CPListItem(
-            text: 'Alert',
-            detailText: 'Action template that the user can perform on an alert',
-            onPressed: (complete, self) {
-              showAlert();
-              complete();
-            },
-          ),
-          CPListItem(
-            text: 'Grid Template',
-            detailText: 'A template that displays and manages a grid of items',
-            onPressed: (complete, self) {
-              openGridTemplate();
-              complete();
-            },
-          ),
-          CPListItem(
-            text: 'Action Sheet',
-            detailText: 'A template that displays a modal action sheet',
-            onPressed: (complete, self) {
-              showActionSheet();
-              complete();
-            },
-          ),
-          CPListItem(
-            text: 'List Template',
-            detailText: 'Displays and manages a list of items',
-            onPressed: (complete, self) {
-              openListTemplate();
-              complete();
-            },
-          ),
-          CPListItem(
-            text: 'Information Template',
-            detailText: 'Displays a list of items and up to three actions',
-            onPressed: (complete, self) {
-              openInformationTemplate();
-              complete();
-            },
-          ),
-          CPListItem(
-            text: 'Point Of Interest Template',
-            detailText: 'Displays a Map with points of interest.',
-            onPressed: (complete, self) {
-              openPoiTemplate();
-              complete();
-            },
-          ),
-        ],
-        header: 'Features',
-      ),
-    ];
-
     cpMapTemplate = CPMapTemplate(
       title: 'Map Template',
       mapButtons: [
-        CPMapButton(
-          onPressed: _zoomIn,
-          image: 'images/logo_flutter_1080px_clr.png',
-        ),
-        CPMapButton(
-          onPressed: _zoomOut,
-          image: 'images/logo_flutter_1080px_clr.png',
-        ),
         CPMapButton(
           onPressed: _moveCamera,
           image: 'images/logo_flutter_1080px_clr.png',
@@ -228,35 +88,39 @@ class _MyAppState extends State<MyApp> {
           onPressed: _centerMap,
           image: 'images/logo_flutter_1080px_clr.png',
         ),
+        CPMapButton(
+          onPressed: _zoomIn,
+          image: 'images/logo_flutter_1080px_clr.png',
+        ),
+        CPMapButton(
+          onPressed: _zoomOut,
+          image: 'images/logo_flutter_1080px_clr.png',
+        ),
       ],
       leadingNavigationBarButtons: [
         CPBarButton(
-          title: 'Home',
+          // title: 'Up',
+          image: 'images/up1.png',
+          style: CPBarButtonStyles.none,
           onPressed: () async {
-            final didPush = await FlutterCarplay.push(
-              template: CPListTemplate(
-                sections: section1Items,
-                title: 'Home',
-                systemIcon: 'house.fill',
-              ),
-            );
-            if (didPush) log('Opened Home');
+            cpMapTemplate.scrollUpMapList();
+          },
+        ),
+        CPBarButton(
+          // title: 'Down',
+          image: 'images/donw1.png',
+          style: CPBarButtonStyles.none,
+          onPressed: () async {
+            cpMapTemplate.scrollDownMapList();
           },
         ),
       ],
       trailingNavigationBarButtons: [
         CPBarButton(
-          title: 'Features',
+          title: 'Close',
           // image: 'images/logo_flutter_1080px_clr.png',
-          onPressed: () async {
-            final didPush = await FlutterCarplay.push(
-              template: CPListTemplate(
-                title: 'Features',
-                sections: section2Items,
-                systemIcon: 'star.circle.fill',
-              ),
-            );
-            if (didPush) log('Opened Features');
+          onPressed: () {
+            cpMapTemplate.dismissPanningInterface();
           },
         ),
         CPBarButton(
@@ -283,26 +147,110 @@ class _MyAppState extends State<MyApp> {
           image: 'mages/logo_flutter_1080px_clr.png',
         ),
       ],
+      automaticallyHidesNavigationBar: true,
     );
 
-    FlutterCarplay.push(
-      template: cpMapTemplate,
-    );
+    FlutterCarplay.setRootTemplate(rootTemplate: cpMapTemplate);
+    _addMapList();
   }
 
   _zoomIn() {
+    cpMapTemplate.zoomInMapView();
+  }
+
+  _zoomOut() {
+    cpMapTemplate.zoomOutMapView();
+  }
+
+  _moveCamera() {
+    cpMapTemplate.showPanningInterface();
+  }
+
+  _centerMap() {
+    cpMapTemplate.centerMapView();
+  }
+
+  _addMapList() {
     final data = <CPMapList>[
       CPMapList(
-        address: 'Bến xe miền đông',
+        address: 'Ben xe mien dong',
         time: '15:00',
         isCheck: true,
         isShowUserPick: true,
         userPick: '20/20',
+        isShowUserDrop: true,
+        userDrop: '2/2',
         isShowLabelUserConfirm: true,
-        confirmUser: 'Yes',
+        confirmUser: 'Confirm',
       ),
       CPMapList(
-        address: 'Bến xe suoi tien',
+        address: 'Ben xe mien bac',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '70/70',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe mien tay',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '42/42',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe suoi tien',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe da nang',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe quang  ngai',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe quang nam',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe suoi tien',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address:
+            '55/9 Đ. Lý Chiêu Hoàng, Khu II, Quận 6, Thành phố Hồ Chí Minh 700000, Việt Nam',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address:
+            '163-75 Song Hành, Phường 10, Quận 6, Thành phố Hồ Chí Minh 747160, Việt Nam',
         time: '17:00',
         isShowUserPick: true,
         userPick: '1',
@@ -311,31 +259,6 @@ class _MyAppState extends State<MyApp> {
       ),
     ];
     cpMapTemplate.addMapList(data: data);
-    // cpMapTemplate.clearAnnotation();
-  }
-
-  _zoomOut() {
-    final data = <CPMapPoint>[
-      CPMapPoint(
-        title: 'Ben xe mien dong',
-        subTitle: 'in for',
-        lat: 10.815884,
-        lng: 106.710815,
-      ),
-      CPMapPoint(
-        lat: 10.873774,
-        lng: 106.763566,
-      ),
-    ];
-    cpMapTemplate.addMarker(data: data);
-  }
-
-  _moveCamera() {
-    cpMapTemplate.zoomOutMapView();
-  }
-
-  _centerMap() {
-    cpMapTemplate.zoomInMapView();
   }
 
   @override
