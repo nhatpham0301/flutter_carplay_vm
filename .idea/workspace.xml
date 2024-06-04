@@ -5,21 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5fb0b89-71c7-4b2b-a91d-dc73570843de" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/images/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/images/9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/images/donw1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/images/down.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/images/up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/images/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPTestList.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/images/donw1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/images/up1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/FCPEnums.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/FCPEnums.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftFlutterCarplayPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftFlutterCarplayPlugin.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/models/map/FCPMapViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/models/map/FCPMapViewController.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPMapList.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPMapList.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPMapListModel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPMapListModel.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/constants/private_constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants/private_constants.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/controllers/carplay_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/carplay_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/map/map_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/map/map_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/map/map_template.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/map/map_template.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,19 +47,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "/Volumes/SSD500/example_flutter/clone-carplay/flutter_carplay/example/images",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Volumes/SSD500/example_flutter/clone-carplay/flutter_carplay/example/images&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/example/images" />

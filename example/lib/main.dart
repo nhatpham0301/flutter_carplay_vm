@@ -152,6 +152,7 @@ class _MyAppState extends State<MyApp> {
 
     FlutterCarplay.setRootTemplate(rootTemplate: cpMapTemplate);
     _addMapList();
+    _addPolyline();
   }
 
   _zoomIn() {
@@ -168,6 +169,95 @@ class _MyAppState extends State<MyApp> {
 
   _centerMap() {
     cpMapTemplate.centerMapView();
+    final data = <CPMapList>[
+      CPMapList(
+        address: 'Ben xe mien dong 111111',
+        time: '15:00',
+        isCheckIn: true,
+        isCurrentPoint: true,
+        isShowUserPick: true,
+        userPick: '20/20',
+        isShowUserDrop: true,
+        userDrop: '2/2',
+        isShowLabelUserConfirm: true,
+        confirmUser: 'Confirm',
+      ),
+      CPMapList(
+        address: 'Ben xe mien bac',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '70/70',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe mien tay',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '42/42',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe suoi tien',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe da nang',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe quang  ngai',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe quang nam',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address: 'Ben xe suoi tien',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address:
+            '55/9 Đ. Lý Chiêu Hoàng, Khu II, Quận 6, Thành phố Hồ Chí Minh 700000, Việt Nam',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+      CPMapList(
+        address:
+            '163-75 Song Hành, Phường 10, Quận 6, Thành phố Hồ Chí Minh 747160, Việt Nam',
+        time: '17:00',
+        isShowUserPick: true,
+        userPick: '1',
+        isShowUserDrop: true,
+        userDrop: '5',
+      ),
+    ];
+    cpMapTemplate.updateMapList(data: data);
   }
 
   _addMapList() {
@@ -175,7 +265,8 @@ class _MyAppState extends State<MyApp> {
       CPMapList(
         address: 'Ben xe mien dong',
         time: '15:00',
-        isCheck: true,
+        isCheckIn: true,
+        isCurrentPoint: true,
         isShowUserPick: true,
         userPick: '20/20',
         isShowUserDrop: true,
@@ -259,6 +350,32 @@ class _MyAppState extends State<MyApp> {
       ),
     ];
     cpMapTemplate.addMapList(data: data);
+  }
+
+  _addPolyline() {
+    final data = <CPMapPoint>[
+      CPMapPoint(
+        lat: 10.804334,
+        lng: 106.721583,
+      ),
+      CPMapPoint(
+        lat: 10.815884,
+        lng: 106.710815,
+      ),
+    ];
+    cpMapTemplate.addPolyline(data: data);
+
+    final dataUser = <CPMapPoint>[
+      CPMapPoint(
+        lat: 10.815884,
+        lng: 106.710815,
+      ),
+      CPMapPoint(
+        lat: 10.864870,
+        lng: 106.724350,
+      ),
+    ];
+    cpMapTemplate.addPolyline(data: dataUser, colorUser: true);
   }
 
   @override

@@ -4,7 +4,9 @@ class FCPMapListModel {
     private var time: String?
     private var title: String?
     private var address: String?
-    private var isCheck: Bool?
+    private var isCheckIn: Bool?
+    private var isCurrentPoint: Bool?
+    private var isNextPoint: Bool?
     private var isShowLabelUserConfirm: Bool?
     private var isShowUserDrop: Bool?
     private var isShowUserPick: Bool?
@@ -18,7 +20,9 @@ class FCPMapListModel {
     init(obj: [String: Any]) {
         title = obj["title"] as? String
         time = obj["time"] as? String
-        isCheck = obj["isCheck"] as? Bool
+        isCheckIn = obj["isCheckIn"] as? Bool
+        isCurrentPoint = obj["isCurrentPoint"] as? Bool
+        isNextPoint = obj["isNextPoint"] as? Bool
         address = obj["address"] as? String
         isShowLabelUserConfirm = obj["isShowLabelUserConfirm"] as? Bool
         confirmUser = obj["confirmUser"] as? String
@@ -39,8 +43,16 @@ class FCPMapListModel {
         return time
     }
     
-    func getIsCheck() -> Bool {
-        return isCheck ?? false
+    func getIsCheckIn() -> Bool {
+        return isCheckIn ?? false
+    }
+    
+    func getIsCurrentPoint() -> Bool {
+        return isCurrentPoint ?? false
+    }
+    
+    func getIsNextPoint() -> Bool {
+        return isNextPoint ?? false
     }
     
     func getAddress() -> String? {

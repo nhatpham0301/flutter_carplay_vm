@@ -223,6 +223,11 @@ class CPMapTemplate {
     FlutterCarplayController.addMapList(uniqueId, data: data);
   }
 
+  /// update list sub map on the [CPMapTemplate]
+  void updateMapList({required List<CPMapList> data}) {
+    FlutterCarplayController.updateMapList(uniqueId, data: data);
+  }
+
   /// clear list sub map on the [CPMapTemplate]
   void clearMapList() {
     FlutterCarplayController.clearMapList(uniqueId);
@@ -238,14 +243,20 @@ class CPMapTemplate {
     FlutterCarplayController.scrollDownMapList(uniqueId);
   }
 
+  /// scroll to index list sub map on the [CPMapTemplate]
+  void scrollToIndexMapList({required int index}) {
+    FlutterCarplayController.scrollToIndexMapList(uniqueId, index: index);
+  }
+
   /// add marker on the [CPMapTemplate]
   void addMarker({required List<CPMapPoint> data}) {
     FlutterCarplayController.addMarker(uniqueId, data: data);
   }
 
   /// add polyline on the [CPMapTemplate]
-  void addPolyline({required List<CPMapPoint> data}) {
-    FlutterCarplayController.addPolyline(uniqueId, data: data);
+  void addPolyline({required List<CPMapPoint> data, bool colorUser = false}) {
+    FlutterCarplayController.addPolyline(uniqueId,
+        data: data, colorUser: colorUser);
   }
 
   /// add polyline on the [CPMapTemplate]

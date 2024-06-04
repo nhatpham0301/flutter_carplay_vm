@@ -231,6 +231,17 @@ class FlutterCarplayController {
     );
   }
 
+  /// update map list the map view on the [CPMapTemplate].
+  static void updateMapList(String elementId, {required List<CPMapList> data}) {
+    _methodChannel.invokeMethod(
+      FCPChannelTypes.updateListSubMap.name,
+      {
+        '_elementId': elementId,
+        'data': data.map((e) => e.toJson()).toList(),
+      },
+    );
+  }
+
   /// clear map list on the map view on the [CPMapTemplate].
   static void clearMapList(String elementId) {
     _methodChannel.invokeMethod(
@@ -261,6 +272,17 @@ class FlutterCarplayController {
     );
   }
 
+  /// scroll to index sub list on the map view on the [CPMapTemplate].
+  static void scrollToIndexMapList(String elementId, {required int index}) {
+    _methodChannel.invokeMethod(
+      FCPChannelTypes.scrollToIndexListSubMap.name,
+      {
+        '_elementId': elementId,
+        'index': index,
+      },
+    );
+  }
+
   /// add marker on the map view on the [CPMapTemplate].
   static void addMarker(String elementId, {required List<CPMapPoint> data}) {
     _methodChannel.invokeMethod(
@@ -273,12 +295,14 @@ class FlutterCarplayController {
   }
 
   /// add polyline the map view on the [CPMapTemplate].
-  static void addPolyline(String elementId, {required List<CPMapPoint> data}) {
+  static void addPolyline(String elementId,
+      {required List<CPMapPoint> data, bool colorUser = false}) {
     _methodChannel.invokeMethod(
       FCPChannelTypes.addPolylineToMap.name,
       {
         '_elementId': elementId,
         'data': data.map((e) => e.toJson()).toList(),
+        'colorUser': colorUser,
       },
     );
   }

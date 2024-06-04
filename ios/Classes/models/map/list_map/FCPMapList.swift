@@ -32,20 +32,9 @@ class FCPMapListController: UIViewController, UITableViewDelegate, UITableViewDa
         // Setup table view
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.frame = CGRect(x: 0, y: 0, width: 300, height: heightBounds) // Adjust height as needed
+        tableView.frame = CGRect(x: 0, y: 0, width: 300, height: heightBounds)
         tableView.backgroundColor = UIColor.white
-        tableView.separatorStyle = .none
-        tableView.sectionHeaderHeight = 0.0
-        tableView.sectionFooterHeight = 0.0
-        tableView.backgroundView = UIView()
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.bounces = false
-        tableView.alwaysBounceHorizontal = false
-        tableView.contentInset = .zero
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = 0
-            UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
-        }
         view.addSubview(tableView)
     }
     
@@ -67,36 +56,16 @@ class FCPMapListController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
+        cell.contentView.layoutMargins = .zero
         cell.layoutMargins = UIEdgeInsets.zero
         cell.separatorInset = UIEdgeInsets.zero
         cell.layer.borderWidth = .zero
         cell.layer.cornerRadius = .zero
         cell.layer.masksToBounds = true
-        cell.contentView.frame = cell.contentView.frame.inset(by: UIEdgeInsets(top: 30, left: 0, bottom: 25, right: 0))
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("select row")
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return heightCell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.00
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.00
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        nil
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        nil
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return heightCell
     }
 }
 
@@ -104,11 +73,12 @@ class FCPMapListController: UIViewController, UITableViewDelegate, UITableViewDa
 class FCPMapListCell: UITableViewCell {
     let outerView = UIView()
     let firstSubview = UIView()
-    let circleView = UIView()
     let secondSubview = UIView()
+    let thirdSubview = UIView()
+    let informationSubview = UIView()
+    let circleView = UIView()
     let topLabel = UILabel()
     let bottomLabel = UILabel()
-    let thirdSubview = UIView()
     let totalPick = UILabel()
     let totalDrop = UILabel()
     let confirmUserPickDrop = UILabel()
@@ -128,10 +98,19 @@ class FCPMapListCell: UITableViewCell {
         self.layoutMargins = UIEdgeInsets.zero
         setupViews()
     }
+    
+    override func prepareForReuse() {
+       removeAllBorder(view: informationSubview)
+    }
+    
+    func removeAllBorder(view: UIView) {
+        view.layer.borderWidth = 0
+        view.layer.borderColor = nil
+    }
 
     func configure(with model: FCPMapListModel) {
         // circle view
-        circleView.backgroundColor = model.getIsCheck() == true ? UIColor.systemGreen : UIColor.gray
+        circleView.backgroundColor = model.getIsCheckIn() == true ? UIColor.systemGreen : UIColor.gray
         
         // time label
         topLabel.text = model.getTime() ?? "-"
@@ -163,6 +142,13 @@ class FCPMapListCell: UITableViewCell {
         if model.getIsShowLabelUserConfirm() == false {
             confirmUserPickDrop.isHidden = true
         }
+        
+        // Show/hide border information view
+        if model.getIsCurrentPoint() == true {
+            informationSubview.layer.borderWidth = 1
+            informationSubview.layer.borderColor = UIColor.systemBlue.cgColor
+            informationSubview.layer.cornerRadius = 8
+        }
     }
     
     func setupViews() {
@@ -179,7 +165,7 @@ class FCPMapListCell: UITableViewCell {
         circleView.layer.cornerRadius = 5
         circleView.translatesAutoresizingMaskIntoConstraints = false
         firstSubview.addSubview(circleView)
-
+        
         // ================== View second ==================
         // View title information
         secondSubview.backgroundColor = UIColor.white
@@ -200,7 +186,6 @@ class FCPMapListCell: UITableViewCell {
 
         // ================== View Pick-Drop ==================
         // View total User pick-drop
-
         thirdSubview.backgroundColor = UIColor.white
         thirdSubview.translatesAutoresizingMaskIntoConstraints = false
 
@@ -229,10 +214,15 @@ class FCPMapListCell: UITableViewCell {
         confirmUserPickDrop.translatesAutoresizingMaskIntoConstraints = false
         thirdSubview.addSubview(confirmUserPickDrop)
 
+        // ================== Information view ==================
+        informationSubview.backgroundColor = UIColor.white
+        informationSubview.translatesAutoresizingMaskIntoConstraints = false
+        informationSubview.addSubview(secondSubview)
+        informationSubview.addSubview(thirdSubview)
+
         // Add subviews to outerView
         outerView.addSubview(firstSubview)
-        outerView.addSubview(secondSubview)
-        outerView.addSubview(thirdSubview)
+        outerView.addSubview(informationSubview)
 
         // Add outerView to cell's contentView
         self.contentView.addSubview(outerView)
@@ -256,11 +246,17 @@ class FCPMapListCell: UITableViewCell {
             circleView.centerYAnchor.constraint(equalTo: firstSubview.centerYAnchor),
             circleView.widthAnchor.constraint(equalToConstant: 10),
             circleView.heightAnchor.constraint(equalToConstant: 10),
+            
+            // Information subview contraints
+            informationSubview.leadingAnchor.constraint(equalTo: firstSubview.trailingAnchor, constant: 8),
+            informationSubview.topAnchor.constraint(equalTo: outerView.topAnchor, constant: 4),
+            informationSubview.bottomAnchor.constraint(equalTo: outerView.bottomAnchor, constant: -4),
+            informationSubview.trailingAnchor.constraint(equalTo: outerView.trailingAnchor, constant: -4),
 
             // Second subview constraints
-            secondSubview.leadingAnchor.constraint(equalTo: firstSubview.trailingAnchor, constant: 8),
-            secondSubview.topAnchor.constraint(equalTo: outerView.topAnchor),
-            secondSubview.bottomAnchor.constraint(equalTo: outerView.bottomAnchor),
+            secondSubview.leadingAnchor.constraint(equalTo: informationSubview.leadingAnchor),
+            secondSubview.topAnchor.constraint(equalTo: informationSubview.topAnchor),
+            secondSubview.bottomAnchor.constraint(equalTo: informationSubview.bottomAnchor),
 
             // Top label constraints
             topLabel.leadingAnchor.constraint(equalTo: secondSubview.leadingAnchor, constant: 5),
@@ -270,12 +266,12 @@ class FCPMapListCell: UITableViewCell {
             // Bottom label constraints
             bottomLabel.leadingAnchor.constraint(equalTo: secondSubview.leadingAnchor, constant: 5),
             bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 5),
-            bottomLabel.trailingAnchor.constraint(equalTo: secondSubview.trailingAnchor),
+            bottomLabel.trailingAnchor.constraint(equalTo: secondSubview.trailingAnchor, constant: -5),
 
             // Third subview constraints
-            thirdSubview.trailingAnchor.constraint(equalTo: outerView.trailingAnchor),
-            thirdSubview.topAnchor.constraint(equalTo: outerView.topAnchor),
-            thirdSubview.bottomAnchor.constraint(equalTo: outerView.bottomAnchor),
+            thirdSubview.trailingAnchor.constraint(equalTo: informationSubview.trailingAnchor),
+            thirdSubview.topAnchor.constraint(equalTo: informationSubview.topAnchor),
+            thirdSubview.bottomAnchor.constraint(equalTo: informationSubview.bottomAnchor),
             thirdSubview.leadingAnchor.constraint(greaterThanOrEqualTo: secondSubview.trailingAnchor, constant: 5),
             
             // Icon pick constraints
@@ -286,7 +282,7 @@ class FCPMapListCell: UITableViewCell {
             // Total pick label constraints
             totalPick.leadingAnchor.constraint(equalTo: viewIconPick.trailingAnchor, constant: 5),
             totalPick.centerYAnchor.constraint(equalTo: viewIconPick.centerYAnchor),
-            totalPick.trailingAnchor.constraint(equalTo: thirdSubview.trailingAnchor, constant: 0),
+            totalPick.trailingAnchor.constraint(equalTo: thirdSubview.trailingAnchor, constant: -5),
 
             
             // Icon drop constraints
@@ -297,11 +293,11 @@ class FCPMapListCell: UITableViewCell {
             // Total drop label constraints
             totalDrop.leadingAnchor.constraint(equalTo: viewIconDrop.trailingAnchor, constant: 5),
             totalDrop.centerYAnchor.constraint(equalTo: viewIconDrop.centerYAnchor),
-            totalDrop.trailingAnchor.constraint(equalTo: thirdSubview.trailingAnchor, constant: 0),
+            totalDrop.trailingAnchor.constraint(equalTo: thirdSubview.trailingAnchor, constant: -5),
             
             // Confirm User pick-drop label constraints
             confirmUserPickDrop.topAnchor.constraint(equalTo: viewIconDrop.bottomAnchor, constant: 5),
-            confirmUserPickDrop.trailingAnchor.constraint(equalTo: thirdSubview.trailingAnchor, constant: 0),
+            confirmUserPickDrop.trailingAnchor.constraint(equalTo: thirdSubview.trailingAnchor, constant: -5),
         ])
     }
 }

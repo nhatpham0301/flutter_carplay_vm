@@ -186,6 +186,9 @@ enum FCPChannelTypes {
   /// Event for add map list the map view in CarPlay.
   addListSubMap,
 
+  /// Event for update map list the map view in CarPlay.
+  updateListSubMap,
+
   /// Event for clear all annotation on the map view in CarPlay.
   clearListSubMap,
 
@@ -194,6 +197,9 @@ enum FCPChannelTypes {
 
   /// Event for scroll down annotation on the map view in CarPlay.
   scrollDownListSubMap,
+
+  /// Event for scroll to index annotation on the map view in CarPlay.
+  scrollToIndexListSubMap,
 
   /// Event for add marker on the map view in CarPlay.
   addMarkerToMap,

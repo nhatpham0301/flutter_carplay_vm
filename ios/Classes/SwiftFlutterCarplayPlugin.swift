@@ -690,6 +690,23 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
             }
             
             result(false)
+            
+        case FCPChannelTypes.updateListSubMap:
+            guard let args = call.arguments as? [String: Any],
+                  let elementId = args["_elementId"] as? String,
+                  let dataArray = args["data"] as? [[String: Any]]
+            else {
+                result(false)
+                return
+            }
+            let data: [FCPMapListModel] = dataArray.map { FCPMapListModel(obj: $0) }
+            // Find the map template based on the provided element ID
+            SwiftFlutterCarplayPlugin.findMapTemplate(elementId: elementId) { mapTemplate in
+                mapTemplate.fcpMapViewController?.updateMapList(data: data)
+                return result(true)
+            }
+            
+            result(false)
 
         case FCPChannelTypes.clearListSubMap:
             guard let args = call.arguments as? [String: Any],
@@ -735,6 +752,22 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
             }
 
             result(false)
+            
+        case FCPChannelTypes.scrollToIndexListSubMap:
+            guard let args = call.arguments as? [String: Any],
+                  let elementId = args["_elementId"] as? String,
+                  let index = args["index"] as? Int
+            else {
+                result(false)
+                return
+            }
+            // Find the map template based on the provided element ID
+            SwiftFlutterCarplayPlugin.findMapTemplate(elementId: elementId) { mapTemplate in
+                mapTemplate.fcpMapViewController?.scrollToIndex(index: index)
+                return result(true)
+            }
+
+            result(false)
 
         case FCPChannelTypes.addMarkerToMap:
             guard let args = call.arguments as? [String: Any],
@@ -761,10 +794,11 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
                 result(false)
                 return
             }
+            let colorUser = args["colorUser"] as? Bool ?? false
             let coordinates: [CLLocationCoordinate2D] = dataArray.map { CLLocationCoordinate2D(latitude: $0["lat"] as! CLLocationDegrees, longitude: $0["lng"] as! CLLocationDegrees) }
             // Find the map template based on the provided element ID
             SwiftFlutterCarplayPlugin.findMapTemplate(elementId: elementId) { mapTemplate in
-                mapTemplate.fcpMapViewController?.addPolyline(coordinates: coordinates)
+                mapTemplate.fcpMapViewController?.addPolyline(coordinates: coordinates, colorUser: colorUser)
                 return result(true)
             }
             

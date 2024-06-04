@@ -22,6 +22,8 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     
     let _url = Bundle.main.object(forInfoDictionaryKey: "VietMapURL") as! String
     
+    var colorUser: Bool = false
+    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -82,7 +84,8 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
         mapView.removeAnnotations(mapView.annotations ?? [])
     }
     
-    func addPolyline(coordinates: [CLLocationCoordinate2D]) {
+    func addPolyline(coordinates: [CLLocationCoordinate2D], colorUser: Bool = false) {
+        self.colorUser = colorUser
         let polyline = MGLPolyline(coordinates: coordinates, count: UInt(coordinates.count))
         mapView.addAnnotation(polyline)
     }
@@ -169,8 +172,16 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
             let maxOffset = listViewMap.tableView.contentSize.height - listViewMap.tableView.bounds.height
             let newOffset = min(currentOffset + listViewMap.heightCell, maxOffset)
             listViewMap.tableView.setContentOffset(CGPoint(x: 0, y: newOffset), animated: true)
-            
         }
+    }
+    
+    func scrollToIndex(index: Int) {
+        DispatchQueue.main.async {
+            guard let listViewMap = self.listViewMap else {return}
+            let indexPath = IndexPath(row: index, section: 0)
+            listViewMap.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        }
+        
     }
     
     func clearMapList() {
@@ -179,7 +190,18 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
             mapView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         }
     }
+    
+    func updateMapList(data: [FCPMapListModel]) {
+        if let listViewMap = listViewMap {
+            listViewMap.data = data
+            listViewMap.tableView.reloadData()
+        }
+    }
 }
 
 
-extension FCPMapViewController: MGLMapViewDelegate {}
+extension FCPMapViewController: MGLMapViewDelegate {
+    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+        return colorUser ? .red : .blue
+    }
+}

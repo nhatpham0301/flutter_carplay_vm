@@ -2,7 +2,9 @@ class CPMapList {
   final String? time;
   final String? title;
   final String? address;
-  final bool? isCheck;
+  final bool? isCheckIn;
+  final bool? isCurrentPoint;
+  final bool? isNextPoint;
   final bool? isShowLabelUserConfirm;
   final bool? isShowUserDrop;
   final bool? isShowUserPick;
@@ -17,7 +19,9 @@ class CPMapList {
     this.time,
     this.title,
     this.address,
-    this.isCheck,
+    this.isCheckIn,
+    this.isCurrentPoint,
+    this.isNextPoint,
     this.isShowLabelUserConfirm,
     this.isShowUserDrop,
     this.isShowUserPick,
@@ -33,7 +37,9 @@ class CPMapList {
         'time': time,
         'title': title,
         'address': address,
-        'isCheck': isCheck,
+        'isCheckIn': isCheckIn,
+        'isCurrentPoint': isCurrentPoint,
+        'isNextPoint': isNextPoint,
         'isShowLabelUserConfirm': isShowLabelUserConfirm,
         'isShowUserDrop': isShowUserDrop,
         'isShowUserPick': isShowUserPick,
