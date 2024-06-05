@@ -71,8 +71,8 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     func addPoint(point: FCPMapPointModel) {
         let annotation = MGLPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: point.getLat() ?? 0.0, longitude: point.getLng() ?? 0.0)
-        annotation.title = point.getTitle() ?? ""
-        annotation.subtitle = point.getSubTitle() ?? ""
+        annotation.title = point.getTitle() ?? "marker_job"
+        annotation.subtitle = point.getSubTitle() ?? "marker_job_check_in"
         mapView.addAnnotation(annotation)
     }
     
@@ -218,5 +218,46 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
 extension FCPMapViewController: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
         return colorUser ? .red : .blue
+    }
+    
+    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        let identifier = (annotation.title ?? "customAnnotation") ?? "customAnnotation"
+        let imageName = (annotation.subtitle ?? "marker_job") ?? "marker_job"
+        let title = (annotation.title ?? "") ?? ""
+
+        var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: identifier)
+        
+        if annotationImage == nil {
+            let image = UIImage(named: imageName)!
+            let size = CGSize(width: 48, height: 48)
+            let imageWithLabel = createImageWithLabel(image: image, text: title, size: size)
+            
+            annotationImage = MGLAnnotationImage(image: imageWithLabel, reuseIdentifier: identifier)
+        }
+        return annotationImage
+    }
+    
+    func createImageWithLabel(image: UIImage, text: String, size: CGSize) -> UIImage {
+        let view = UIView(frame: CGRect(origin: .zero, size: size))
+        
+        let imageView = UIImageView(image: image)
+        imageView.frame = CGRect(origin: .zero, size: size)
+        view.addSubview(imageView)
+
+        let label = UILabel(frame: CGRect(x: 0, y: 6, width: size.width, height: 20))
+        label.backgroundColor = .clear
+        label.text = text
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textAlignment = .center
+        label.textColor = .black
+        view.addSubview(label)
+        
+        // Convert UIView to UIImage
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
 }

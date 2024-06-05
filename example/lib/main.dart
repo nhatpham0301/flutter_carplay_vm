@@ -154,6 +154,7 @@ class _MyAppState extends State<MyApp> {
     FlutterCarplay.setRootTemplate(rootTemplate: cpMapTemplate);
     _addMapList();
     _addPolyline();
+    _addMarker();
   }
 
   _zoomIn() {
@@ -384,6 +385,30 @@ class _MyAppState extends State<MyApp> {
       ),
     ];
     cpMapTemplate.addPolyline(data: dataUser, colorUser: true);
+  }
+
+  _addMarker() {
+    final data = <CPMapPoint>[
+      CPMapPoint(
+        lat: 10.815884,
+        lng: 106.710815,
+        title: '12',
+        subTitle: 'marker_job',
+      ),
+      CPMapPoint(
+        lat: 10.864870,
+        lng: 106.724350,
+        title: '4',
+        subTitle: 'marker_job_check_in',
+      ),
+      CPMapPoint(
+        lat: 10.75902280455639,
+        lng: 106.67528882698097,
+        title: '2',
+        subTitle: 'marker_job',
+      ),
+    ];
+    cpMapTemplate.addMarker(data: data);
   }
 
   @override
