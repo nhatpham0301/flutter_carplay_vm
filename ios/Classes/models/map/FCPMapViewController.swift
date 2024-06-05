@@ -17,6 +17,8 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     var mapView: MGLMapView!
     
     var listViewMap: FCPMapListController?
+
+    var listViewMapHeader: FCPHeaderMapList?
     
     var coordinates: [CLLocationCoordinate2D] = []
     
@@ -140,11 +142,23 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
         mapView.setCamera(camera, animated: true)
     }
     
-    func addMapList(data: [FCPMapListModel]) {
+    func addMapList(data: [FCPMapListModel], estimatePoint: FCPMapListHeaderModel?) {
         mapView.frame = CGRect(x: 300, y: 0, width: view.frame.width - 300, height: view.frame.height)
-        listViewMap = FCPMapListController(data: data, heightBounds: view.frame.height)
+        // Add header
+        listViewMapHeader = FCPHeaderMapList(estimatePoint: estimatePoint, nextPoint: data.first)
+        if let listViewMapHeader = listViewMapHeader {
+            listViewMapHeader.view.frame = CGRect(x: 0, y: 0, width: 300, height: 70)
+            listViewMapHeader.view.backgroundColor = UIColor.white
+            listViewMapHeader.viewRespectsSystemMinimumLayoutMargins = false
+            addChild(listViewMapHeader)
+            view.addSubview(listViewMapHeader.view)
+            listViewMapHeader.didMove(toParent: self)
+        }
+        // Add listview
+        let heightBoundsListView = view.frame.height - 70
+        listViewMap = FCPMapListController(data: data, heightBounds:heightBoundsListView)
         if let listViewMap = listViewMap {
-            listViewMap.view.frame = CGRect(x: 0, y: 0, width: 300, height: view.frame.height)
+            listViewMap.view.frame = CGRect(x: 0, y: 70, width: 300, height:heightBoundsListView)
             listViewMap.view.backgroundColor = UIColor.white
             listViewMap.viewRespectsSystemMinimumLayoutMargins = false
             addChild(listViewMap)
@@ -185,7 +199,8 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func clearMapList() {
-        if let listViewMap = listViewMap {
+        if let listViewMap = listViewMap, let listViewMapHeader = listViewMapHeader {
+            listViewMapHeader.view.removeFromSuperview()
             listViewMap.view.removeFromSuperview()
             mapView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         }

@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_carplay/models/map/map_list.dart';
+import 'package:flutter_carplay/models/map/map_list_header.dart';
 // import 'package:here_sdk/core.dart';
 
 import '../constants/private_constants.dart';
@@ -221,12 +222,17 @@ class FlutterCarplayController {
   }
 
   /// add map list the map view on the [CPMapTemplate].
-  static void addMapList(String elementId, {required List<CPMapList> data}) {
+  static void addMapList(
+    String elementId, {
+    required List<CPMapList> data,
+    required CPMapListHeader dataEstimatePoint,
+  }) {
     _methodChannel.invokeMethod(
       FCPChannelTypes.addListSubMap.name,
       {
         '_elementId': elementId,
         'data': data.map((e) => e.toJson()).toList(),
+        'dataEstimatePoint': dataEstimatePoint.toJson(),
       },
     );
   }

@@ -14,6 +14,8 @@ class FCPMapListModel {
     private var confirmUser: String?
     private var userPick: String?
     private var userDrop: String?
+    private var estimateTime: String?
+    private var lateEstimateTimeLate: Bool?
     private var lat: Double?
     private var lng: Double?
 
@@ -31,6 +33,8 @@ class FCPMapListModel {
         isConfirmUser = obj["isConfirmUser"] as? Bool
         userPick = obj["userPick"] as? String
         userDrop = obj["userDrop"] as? String
+        estimateTime = obj["estimateTime"] as? String
+        lateEstimateTimeLate = obj["lateEstimateTimeLate"] as? Bool
         lat = obj["lat"] as? Double
         lng = obj["lng"] as? Double
     }
@@ -85,6 +89,14 @@ class FCPMapListModel {
     
     func getUserDrop() -> String? {
         return userDrop
+    }
+    
+    func getEstimateTime() -> String? {
+        return estimateTime
+    }
+    
+    func getLateEstimateTime() -> Bool {
+        return lateEstimateTimeLate ?? false
     }
     
     func getLat() -> Double? {

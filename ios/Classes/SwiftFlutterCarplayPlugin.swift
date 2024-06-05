@@ -429,8 +429,8 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
         case FCPChannelTypes.showBanner:
             guard let args = call.arguments as? [String: Any],
                   let elementId = args["_elementId"] as? String,
-                  let message = args["message"] as? String,
-                  let color = args["color"] as? Int
+                  let _ = args["message"] as? String,
+                  let _ = args["color"] as? Int
             else {
                 result(false)
                 return
@@ -459,8 +459,8 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
         case FCPChannelTypes.showToast:
             guard let args = call.arguments as? [String: Any],
                   let elementId = args["_elementId"] as? String,
-                  let message = args["message"] as? String,
-                  let duration = args["duration"] as? Double
+                  let _ = args["message"] as? String,
+                  let _ = args["duration"] as? Double
             else {
                 result(false)
                 return
@@ -481,9 +481,9 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
                 return
             }
 
-            let primaryTitle = args["primaryTitle"] as? String
-            let secondaryTitle = args["secondaryTitle"] as? String
-            let subtitle = args["subtitle"] as? String
+            _ = args["primaryTitle"] as? String
+            _ = args["secondaryTitle"] as? String
+            _ = args["subtitle"] as? String
 
             // Find the map template based on the provided element ID
             SwiftFlutterCarplayPlugin.findMapTemplate(elementId: elementId) { mapTemplate in
@@ -666,7 +666,7 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
             result(false)
 
         case FCPChannelTypes.updateMapCoordinates:
-            guard let args = call.arguments as? [String: Any]
+            guard call.arguments is [String: Any]
             else {
                 result(false)
                 return
@@ -677,15 +677,17 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
         case FCPChannelTypes.addListSubMap:
             guard let args = call.arguments as? [String: Any],
                   let elementId = args["_elementId"] as? String,
-                  let dataArray = args["data"] as? [[String: Any]]
+                  let dataArray = args["data"] as? [[String: Any]],
+                  let dataEstimatePoint = args["dataEstimatePoint"] as? [String: Any]
             else {
                 result(false)
                 return
             }
             let data: [FCPMapListModel] = dataArray.map { FCPMapListModel(obj: $0) }
+            let estimatePoint: FCPMapListHeaderModel = FCPMapListHeaderModel(obj: dataEstimatePoint)
             // Find the map template based on the provided element ID
             SwiftFlutterCarplayPlugin.findMapTemplate(elementId: elementId) { mapTemplate in
-                mapTemplate.fcpMapViewController?.addMapList(data: data)
+                mapTemplate.fcpMapViewController?.addMapList(data: data, estimatePoint: estimatePoint)
                 return result(true)
             }
             

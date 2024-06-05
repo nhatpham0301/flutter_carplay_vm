@@ -3,6 +3,7 @@ import 'package:uuid/uuid.dart';
 import '../../controllers/carplay_controller.dart';
 import '../../flutter_carplay.dart';
 import 'map_list.dart';
+import 'map_list_header.dart';
 import 'map_point.dart';
 
 /// A template object that displays map.
@@ -219,8 +220,15 @@ class CPMapTemplate {
   }
 
   /// add list sub map on the [CPMapTemplate]
-  void addMapList({required List<CPMapList> data}) {
-    FlutterCarplayController.addMapList(uniqueId, data: data);
+  void addMapList({
+    required List<CPMapList> data,
+    required CPMapListHeader dataEstimatePoint,
+  }) {
+    FlutterCarplayController.addMapList(
+      uniqueId,
+      data: data,
+      dataEstimatePoint: dataEstimatePoint,
+    );
   }
 
   /// update list sub map on the [CPMapTemplate]

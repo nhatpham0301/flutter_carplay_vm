@@ -6,6 +6,7 @@ import 'package:flutter_carplay/constants/private_constants.dart';
 import 'package:flutter_carplay/controllers/carplay_controller.dart';
 import 'package:flutter_carplay/flutter_carplay.dart';
 import 'package:flutter_carplay/models/map/map_list.dart';
+import 'package:flutter_carplay/models/map/map_list_header.dart';
 import 'package:flutter_carplay/models/map/map_point.dart';
 // ignore_for_file: avoid_print
 
@@ -273,6 +274,8 @@ class _MyAppState extends State<MyApp> {
         userDrop: '2/2',
         isShowLabelUserConfirm: true,
         confirmUser: 'Confirm',
+        estimateTime: '15:22',
+        lateEstimateTimeLate: true,
       ),
       CPMapList(
         address: 'Ben xe mien bac',
@@ -331,8 +334,7 @@ class _MyAppState extends State<MyApp> {
         userDrop: '5',
       ),
       CPMapList(
-        address:
-            '55/9 Đ. Lý Chiêu Hoàng, Khu II, Quận 6, Thành phố Hồ Chí Minh 700000, Việt Nam',
+        address: 'Ben xe D',
         time: '17:00',
         isShowUserPick: true,
         userPick: '1',
@@ -340,8 +342,7 @@ class _MyAppState extends State<MyApp> {
         userDrop: '5',
       ),
       CPMapList(
-        address:
-            '163-75 Song Hành, Phường 10, Quận 6, Thành phố Hồ Chí Minh 747160, Việt Nam',
+        address: 'ben xe z',
         time: '17:00',
         isShowUserPick: true,
         userPick: '1',
@@ -349,7 +350,14 @@ class _MyAppState extends State<MyApp> {
         userDrop: '5',
       ),
     ];
-    cpMapTemplate.addMapList(data: data);
+
+    final dataEstimatePoint = CPMapListHeader(
+      time: '1h30p',
+      titleTime: '11:00',
+      distance: '250 km',
+      title: 'Vị trí hiện tại',
+    );
+    cpMapTemplate.addMapList(data: data, dataEstimatePoint: dataEstimatePoint);
   }
 
   _addPolyline() {
