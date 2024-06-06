@@ -64,6 +64,7 @@ class FCPHeaderMapList: UIViewController {
         firstLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         firstLocationLabel.textColor = UIColor.black
         firstLocationLabel.font = UIFont.systemFont(ofSize: 10)
+        firstLocationLabel.numberOfLines = 2
         firstLocationLabel.text = estimatePoint?.getTitle() ?? ""
         
         firstView.addSubview(firstTimeLabel)
