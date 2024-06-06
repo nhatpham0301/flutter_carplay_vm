@@ -10,6 +10,7 @@ import UIKit
 
 class FCPHeaderMapList: UIViewController {
     let headerView = UIView()
+    let labelNameTrip = UILabel()
     let firstView = UIView()
     let firstTimeLabel = UILabel()
     let firstLocationLabel = UILabel()
@@ -39,8 +40,12 @@ class FCPHeaderMapList: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        setupConstraints()
+        if self.nextPoint == nil {
+            setupWithoutNextPoint()
+        } else {
+            setupViews()
+            setupConstraints()
+        }
     }
     
     func setupViews() {
@@ -69,7 +74,7 @@ class FCPHeaderMapList: UIViewController {
         
         centerRemainTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         centerRemainTimeLabel.textColor = UIColor.black
-        centerRemainTimeLabel.font = UIFont.systemFont(ofSize: 10)
+        centerRemainTimeLabel.font = UIFont.systemFont(ofSize: 9)
         centerRemainTimeLabel.text = estimatePoint?.getTime() ?? ""
         
         centerImage.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +87,7 @@ class FCPHeaderMapList: UIViewController {
         
         centerRemainDistanceLabel.translatesAutoresizingMaskIntoConstraints = false
         centerRemainDistanceLabel.textColor = UIColor.black
-        centerRemainDistanceLabel.font = UIFont.systemFont(ofSize: 10)
+        centerRemainDistanceLabel.font = UIFont.systemFont(ofSize: 9)
         centerRemainDistanceLabel.text = estimatePoint?.getDistance() ?? ""
         
         centerView.addSubview(centerRemainTimeLabel)
@@ -175,5 +180,37 @@ class FCPHeaderMapList: UIViewController {
             lastEstimateLabel.trailingAnchor.constraint(equalTo: lastView.trailingAnchor, constant: -10),
             lastEstimateLabel.topAnchor.constraint(equalTo: lastLocationLabel.bottomAnchor, constant: 5),
         ])
+    }
+    
+    func setupWithoutNextPoint() {
+        headerView.frame = CGRect(x: 0, y: 0, width: 300, height: 70)
+        headerView.backgroundColor = UIColor.white
+        view.addSubview(headerView)
+        labelNameTrip.backgroundColor = .clear
+        labelNameTrip.text = estimatePoint?.getNameTrip() ?? ""
+        labelNameTrip.font = UIFont.systemFont(ofSize: 20)
+        labelNameTrip.textAlignment = .left
+        labelNameTrip.textColor = .black
+        labelNameTrip.numberOfLines = 2
+        labelNameTrip.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addSubview(labelNameTrip)
+        NSLayoutConstraint.activate([
+            // First view constraints
+            labelNameTrip.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 50),
+            labelNameTrip.topAnchor.constraint(equalTo: headerView.topAnchor),
+            labelNameTrip.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
+            labelNameTrip.trailingAnchor.constraint(equalTo: headerView.trailingAnchor)
+        ])
+    }
+    
+    func updateValue(data: FCPMapListHeaderModel, nextPoint: FCPMapListModel) {
+        firstTimeLabel.text = data.getTitleTime() ?? ""
+        firstLocationLabel.text = data.getTitle() ?? ""
+        centerRemainTimeLabel.text = data.getTime() ?? ""
+        centerRemainDistanceLabel.text = data.getDistance() ?? ""
+        lastTimeLabel.text = nextPoint.getTime() ?? ""
+        lastLocationLabel.text = nextPoint.getAddress() ?? ""
+        lastEstimateLabel.textColor = nextPoint.getLateEstimateTime() ? UIColor.red : UIColor.systemGreen
+        lastEstimateLabel.text = nextPoint.getEstimateTime() ?? ""
     }
 }

@@ -709,6 +709,25 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
             }
             
             result(false)
+            
+        case FCPChannelTypes.updateHeaderListSubMap:
+            guard let args = call.arguments as? [String: Any],
+                  let elementId = args["_elementId"] as? String,
+                  let dataEstimatePoint = args["dataEstimatePoint"] as? [String: Any],
+                  let dataNextPoint = args["dataNextPoint"] as? [String: Any]
+            else {
+                result(false)
+                return
+            }
+            let estimatePoint: FCPMapListHeaderModel = FCPMapListHeaderModel(obj: dataEstimatePoint)
+            let nextPoint: FCPMapListModel = FCPMapListModel(obj: dataNextPoint)
+            // Find the map template based on the provided element ID
+            SwiftFlutterCarplayPlugin.findMapTemplate(elementId: elementId) { mapTemplate in
+                mapTemplate.fcpMapViewController?.updateHeaderMapList(data: estimatePoint, nextPoint: nextPoint)
+                return result(true)
+            }
+            
+            result(false)
 
         case FCPChannelTypes.clearListSubMap:
             guard let args = call.arguments as? [String: Any],

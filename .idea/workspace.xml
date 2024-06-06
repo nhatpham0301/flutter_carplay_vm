@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5fb0b89-71c7-4b2b-a91d-dc73570843de" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/ios/Runner/Assets.xcassets/marker_job.imageset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/ios/Runner/Assets.xcassets/marker_job.imageset/marker_job.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/ios/Runner/Assets.xcassets/marker_job_check_in.imageset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/ios/Runner/Assets.xcassets/marker_job_check_in.imageset/marker_job_check_in.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPLayerPropertyConverter.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/FCPEnums.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/FCPEnums.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftFlutterCarplayPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftFlutterCarplayPlugin.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/models/map/FCPMapViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/models/map/FCPMapViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPHeaderMapList.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPHeaderMapList.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPMapListHeaderModel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/models/map/list_map/FCPMapListHeaderModel.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/constants/private_constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants/private_constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/carplay_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/carplay_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/map/map_list_header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/map/map_list_header.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/map/map_template.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/map/map_template.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

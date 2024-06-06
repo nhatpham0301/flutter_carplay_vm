@@ -189,6 +189,9 @@ enum FCPChannelTypes {
   /// Event for update map list the map view in CarPlay.
   updateListSubMap,
 
+  /// Event for update header map list the map view in CarPlay.
+  updateHeaderListSubMap,
+
   /// Event for clear all annotation on the map view in CarPlay.
   clearListSubMap,
 

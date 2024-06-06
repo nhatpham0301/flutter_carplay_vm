@@ -248,6 +248,22 @@ class FlutterCarplayController {
     );
   }
 
+  /// update header map list the map view on the [CPMapTemplate].
+  static void updateHeaderMapList(
+    String elementId, {
+    required CPMapList dataNextPoint,
+    required CPMapListHeader dataEstimatePoint,
+  }) {
+    _methodChannel.invokeMethod(
+      FCPChannelTypes.updateHeaderListSubMap.name,
+      {
+        '_elementId': elementId,
+        'dataEstimatePoint': dataEstimatePoint.toJson(),
+        'dataNextPoint': dataNextPoint.toJson(),
+      },
+    );
+  }
+
   /// clear map list on the map view on the [CPMapTemplate].
   static void clearMapList(String elementId) {
     _methodChannel.invokeMethod(

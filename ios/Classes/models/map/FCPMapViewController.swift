@@ -145,7 +145,19 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     func addMapList(data: [FCPMapListModel], estimatePoint: FCPMapListHeaderModel?) {
         mapView.frame = CGRect(x: 300, y: 0, width: view.frame.width - 300, height: view.frame.height)
         // Add header
-        listViewMapHeader = FCPHeaderMapList(estimatePoint: estimatePoint, nextPoint: data.first)
+        if data.last?.getIsCheckIn() == true {
+            listViewMapHeader = FCPHeaderMapList(estimatePoint: estimatePoint, nextPoint: nil)
+        } else {
+            // find nextPoint
+            var nextPoint: FCPMapListModel?
+            for itemMapList in data {
+                if itemMapList.getIsNextPoint() == true {
+                    nextPoint = itemMapList
+                    break
+                }
+            }
+            listViewMapHeader = FCPHeaderMapList(estimatePoint: estimatePoint, nextPoint: nextPoint ?? data.first)
+        }
         if let listViewMapHeader = listViewMapHeader {
             listViewMapHeader.view.frame = CGRect(x: 0, y: 0, width: 300, height: 70)
             listViewMapHeader.view.backgroundColor = UIColor.white
@@ -212,6 +224,12 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
             listViewMap.tableView.reloadData()
         }
     }
+    
+    func updateHeaderMapList(data: FCPMapListHeaderModel, nextPoint: FCPMapListModel) {
+        if let listViewMapHeader = listViewMapHeader {
+            listViewMapHeader.updateValue(data: data, nextPoint: nextPoint)
+        }
+    }
 }
 
 
@@ -221,19 +239,15 @@ extension FCPMapViewController: MGLMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        let identifier = (annotation.title ?? "customAnnotation") ?? "customAnnotation"
         let imageName = (annotation.subtitle ?? "marker_job") ?? "marker_job"
         let title = (annotation.title ?? "") ?? ""
-
-        var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: identifier)
+        let identifier = imageName + title
         
-        if annotationImage == nil {
-            let image = UIImage(named: imageName)!
-            let size = CGSize(width: 48, height: 48)
-            let imageWithLabel = createImageWithLabel(image: image, text: title, size: size)
-            
-            annotationImage = MGLAnnotationImage(image: imageWithLabel, reuseIdentifier: identifier)
-        }
+        let image = UIImage(named: imageName)!
+        let size = CGSize(width: 48, height: 48)
+        let imageWithLabel = createImageWithLabel(image: image, text: title, size: size)
+        
+        let annotationImage = MGLAnnotationImage(image: imageWithLabel, reuseIdentifier: identifier)
         return annotationImage
     }
     

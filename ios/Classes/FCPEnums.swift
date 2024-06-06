@@ -208,6 +208,9 @@ enum FCPChannelTypes {
     /// Event for update sub view list the map view in CarPlay.
     static let updateListSubMap = "updateListSubMap"
     
+    /// Event for update header sub view list the map view in CarPlay.
+    static let updateHeaderListSubMap = "updateHeaderListSubMap"
+    
     /// Event for clear sub view list the map view in CarPlay.
     static let clearListSubMap = "clearListSubMap"
     

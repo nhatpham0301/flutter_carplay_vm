@@ -236,6 +236,18 @@ class CPMapTemplate {
     FlutterCarplayController.updateMapList(uniqueId, data: data);
   }
 
+  /// update header list sub map on the [CPMapTemplate]
+  void updateHeaderMapList({
+    required CPMapList dataNextPoint,
+    required CPMapListHeader dataEstimatePoint,
+  }) {
+    FlutterCarplayController.updateHeaderMapList(
+      uniqueId,
+      dataEstimatePoint: dataEstimatePoint,
+      dataNextPoint: dataNextPoint,
+    );
+  }
+
   /// clear list sub map on the [CPMapTemplate]
   void clearMapList() {
     FlutterCarplayController.clearMapList(uniqueId);
