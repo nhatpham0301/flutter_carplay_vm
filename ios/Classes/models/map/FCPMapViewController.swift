@@ -244,7 +244,7 @@ extension FCPMapViewController: MGLMapViewDelegate {
         let identifier = imageName + title
         
         let image = UIImage(named: imageName)!
-        let size = CGSize(width: 48, height: 48)
+        let size = CGSize(width: 40, height: 70)
         let imageWithLabel = createImageWithLabel(image: image, text: title, size: size)
         
         let annotationImage = MGLAnnotationImage(image: imageWithLabel, reuseIdentifier: identifier)

@@ -158,46 +158,46 @@ class _MyAppState extends State<MyApp> {
   }
 
   _zoomIn() {
-    // cpMapTemplate.zoomInMapView();
-    cpMapTemplate.clearAnnotation();
-    final data = <CPMapPoint>[
-      CPMapPoint(
-        lat: 10.815884,
-        lng: 106.710815,
-        title: '12',
-        subTitle: 'marker_job',
-      ),
-      CPMapPoint(
-        lat: 10.864870,
-        lng: 106.724350,
-        title: '4',
-        subTitle: 'marker_job_check_in',
-      ),
-      CPMapPoint(
-        lat: 10.75902280455639,
-        lng: 106.67528882698097,
-        title: '2',
-        subTitle: 'marker_job_check_in',
-      ),
-    ];
-    cpMapTemplate.addMarker(data: data);
+    cpMapTemplate.zoomInMapView();
+    // cpMapTemplate.clearAnnotation();
+    // final data = <CPMapPoint>[
+    //   CPMapPoint(
+    //     lat: 10.815884,
+    //     lng: 106.710815,
+    //     title: '12',
+    //     subTitle: 'marker_job_check_in',
+    //   ),
+    //   CPMapPoint(
+    //     lat: 10.864870,
+    //     lng: 106.724350,
+    //     title: '4',
+    //     subTitle: 'marker_job_check_in',
+    //   ),
+    //   CPMapPoint(
+    //     lat: 10.75902280455639,
+    //     lng: 106.67528882698097,
+    //     title: '2',
+    //     subTitle: 'marker_job_check_in',
+    //   ),
+    // ];
+    // cpMapTemplate.addMarker(data: data);
   }
 
   _zoomOut() {
-    // cpMapTemplate.zoomOutMapView();
-    cpMapTemplate.updateHeaderMapList(
-      dataNextPoint: CPMapList(
-          time: DateTime.now().toIso8601String(),
-          address: 'xxxxx',
-          lateEstimateTimeLate: false,
-          estimateTime: '12:22'),
-      dataEstimatePoint: CPMapListHeader(
-          nameTrip: 'SSSSS',
-          title: ' Current here',
-          time: '12p121',
-          distance: 'asdasd',
-          titleTime: 'xxxxxx'),
-    );
+    cpMapTemplate.zoomOutMapView();
+    // cpMapTemplate.updateHeaderMapList(
+    //   dataNextPoint: CPMapList(
+    //       time: DateTime.now().toIso8601String(),
+    //       address: 'xxxxx',
+    //       lateEstimateTimeLate: false,
+    //       estimateTime: '12:22'),
+    //   dataEstimatePoint: CPMapListHeader(
+    //       nameTrip: 'SSSSS',
+    //       title: ' Current here',
+    //       time: '12p121',
+    //       distance: 'asdasd',
+    //       titleTime: 'xxxxxx'),
+    // );
   }
 
   _moveCamera() {
@@ -429,7 +429,7 @@ class _MyAppState extends State<MyApp> {
         lat: 10.815884,
         lng: 106.710815,
         title: '12',
-        subTitle: 'marker_job',
+        subTitle: 'marker_job_check_in',
       ),
       CPMapPoint(
         lat: 10.864870,
@@ -441,7 +441,7 @@ class _MyAppState extends State<MyApp> {
         lat: 10.75902280455639,
         lng: 106.67528882698097,
         title: '2',
-        subTitle: 'marker_job',
+        subTitle: 'marker_job_check_in',
       ),
     ];
     cpMapTemplate.addMarker(data: data);
