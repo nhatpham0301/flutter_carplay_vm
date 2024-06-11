@@ -34,8 +34,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // initialCarPlay();
-    _openMapTemplate();
+    initialCarPlay();
+    // _openMapTemplate();
     _flutterCarplay
       ..forceUpdateRootTemplate()
       ..addListenerOnConnectionChange(onCarplayConnectionChange);
@@ -151,7 +151,8 @@ class _MyAppState extends State<MyApp> {
       automaticallyHidesNavigationBar: true,
     );
 
-    FlutterCarplay.setRootTemplate(rootTemplate: cpMapTemplate);
+    FlutterCarplay.push(template: cpMapTemplate);
+    // FlutterCarplay.setRootTemplate(rootTemplate: cpMapTemplate);
     _addMapList();
     _addPolyline();
     _addMarker();

@@ -984,7 +984,16 @@ extension SwiftFlutterCarplayPlugin {
         case String(describing: FCPPointOfInterestTemplate.self):
             pushTemplate = FCPPointOfInterestTemplate(obj: templateArgs).get
         case String(describing: FCPMapTemplate.self):
-            pushTemplate = FCPMapTemplate(obj: templateArgs).get
+            let mapTemplate: FCPMapTemplate = FCPMapTemplate(obj: templateArgs)
+            pushTemplate = mapTemplate.get
+            // For FCPMapTemplate, set the rootViewController and update the CarPlay window's rootViewController
+            SwiftFlutterCarplayPlugin.rootViewController = mapTemplate.viewController
+
+            if FlutterCarplayTemplateManager.shared.isDashboardSceneActive {
+                FlutterCarplayTemplateManager.shared.dashboardWindow?.rootViewController = mapTemplate.viewController
+            } else {
+                FlutterCarplayTemplateManager.shared.carWindow?.rootViewController = mapTemplate.viewController
+            }
         case String(describing: FCPSearchTemplate.self):
             pushTemplate = FCPSearchTemplate(obj: templateArgs).get
         case String(describing: FCPInformationTemplate.self):
