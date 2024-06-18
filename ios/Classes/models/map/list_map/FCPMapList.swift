@@ -132,15 +132,23 @@ class FCPMapListCell: UITableViewCell {
         if model.getIsShowUserPick() == false {
             totalPick.isHidden = true
             viewIconPick.isHidden = true
+        } else {
+            totalPick.isHidden = false
+            viewIconPick.isHidden = false
         }
         
         if model.getIsShowUserDrop() == false {
             totalDrop.isHidden = true
             viewIconDrop.isHidden = true
+        } else {
+            totalDrop.isHidden = false
+            viewIconDrop.isHidden = false
         }
         
         if model.getIsShowLabelUserConfirm() == false {
             confirmUserPickDrop.isHidden = true
+        } else {
+            confirmUserPickDrop.isHidden = false
         }
         
         // Show/hide border information view
@@ -260,7 +268,7 @@ class FCPMapListCell: UITableViewCell {
 
             // Top label constraints
             topLabel.leadingAnchor.constraint(equalTo: secondSubview.leadingAnchor, constant: 5),
-            topLabel.topAnchor.constraint(equalTo: secondSubview.topAnchor, constant: 20),
+            topLabel.topAnchor.constraint(equalTo: secondSubview.topAnchor, constant: 10),
             topLabel.trailingAnchor.constraint(equalTo: secondSubview.trailingAnchor),
 
             // Bottom label constraints
