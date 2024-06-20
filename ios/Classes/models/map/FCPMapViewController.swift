@@ -120,20 +120,21 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func panInDirection(_ direction: CPMapTemplate.PanDirection) {
-        MemoryLogger.shared.appendEvent("Panning to \(direction).")
+        let constantChange = 100.0
+        let cameraCenter = mapView.camera
+        var offset = mapView.convert(cameraCenter.centerCoordinate, toPointTo: mapView)
         
-        var offset = view.center
         switch direction {
         case .down:
-            offset.y += view.bounds.size.height / 2.0
+            offset.y += constantChange
         case .up:
-            offset.y -= view.bounds.size.height / 2.0
+            offset.y -= constantChange
         case .left:
-            offset.x -= view.bounds.size.width / 2.0
+            offset.x -=  constantChange
         case .right:
-            offset.x += view.bounds.size.width / 2.0
+            offset.x +=  constantChange
         default:
-            break
+            return
         }
         
         // Update the Map camera position
