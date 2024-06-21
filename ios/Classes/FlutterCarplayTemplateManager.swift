@@ -189,6 +189,7 @@ class FlutterCarplayTemplateManager: NSObject, CPInterfaceControllerDelegate, CP
     ///   - window: CarPlay window
     func interfaceController(_ interfaceController: CPInterfaceController, didConnectWith window: CPWindow) {
         MemoryLogger.shared.appendEvent("Connected to CarPlay.")
+        SwiftFlutterCarplayPlugin.onCarplayConnectionChange(status: FCPConnectionTypes.connected)
         // save the carplay window
         carWindow = window
         carWindow?.isUserInteractionEnabled = true
@@ -219,6 +220,7 @@ class FlutterCarplayTemplateManager: NSObject, CPInterfaceControllerDelegate, CP
     ///   - window: CarPlay window
     func interfaceController(_: CPInterfaceController, didDisconnectWith _: CPWindow) {
         MemoryLogger.shared.appendEvent("Disconnected from CarPlay window.")
+        SwiftFlutterCarplayPlugin.onCarplayConnectionChange(status: FCPConnectionTypes.disconnected)
 
         if let mapTemplate = SwiftFlutterCarplayPlugin.fcpRootTemplate as? FCPMapTemplate {
             mapTemplate.stopNavigation()

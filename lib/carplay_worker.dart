@@ -27,7 +27,8 @@ class FlutterCarplay {
   late final StreamSubscription<dynamic>? _eventBroadcast;
 
   /// Current CarPlay and mobile app connection status.
-  static String _connectionStatus = CPConnectionStatusTypes.unknown.name;
+  static CPConnectionStatusTypes _connectionStatus =
+      CPConnectionStatusTypes.unknown;
 
   /// A listener function, which will be triggered when CarPlay connection changes
   /// and will be transmitted to the main code, allowing the user to access
@@ -85,7 +86,7 @@ class FlutterCarplay {
             CPConnectionStatusTypes.values,
             event['data']['status'],
           );
-          _connectionStatus = connectionStatus.name;
+          _connectionStatus = connectionStatus;
           _onCarplayConnectionChange?.call(connectionStatus);
         case FCPChannelTypes.onSearchTextUpdated:
           _carPlayController.processFCPSearchTextUpdatedChannel(
@@ -205,7 +206,7 @@ class FlutterCarplay {
   }
 
   /// Current CarPlay connection status. It will return one of [CPConnectionStatusTypes] as String.
-  static String get connectionStatus {
+  static CPConnectionStatusTypes get connectionStatus {
     return _connectionStatus;
   }
 

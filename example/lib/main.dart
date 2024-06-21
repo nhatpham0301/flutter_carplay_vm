@@ -39,6 +39,12 @@ class _MyAppState extends State<MyApp> {
     _flutterCarplay
       ..forceUpdateRootTemplate()
       ..addListenerOnConnectionChange(onCarplayConnectionChange);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Future.delayed(const Duration(seconds: 5));
+      setState(() {
+        connectionStatus = FlutterCarplay.connectionStatus;
+      });
+    });
   }
 
   void initialCarPlay() {
@@ -457,6 +463,17 @@ class _MyAppState extends State<MyApp> {
   void onCarplayConnectionChange(CPConnectionStatusTypes status) {
     // Do things when carplay state is connected, background or disconnected
     setState(() => connectionStatus = status);
+    switch (status) {
+      case CPConnectionStatusTypes.connected:
+        _flutterCarplay.forceUpdateRootTemplate();
+        break;
+      case CPConnectionStatusTypes.background:
+        break;
+      case CPConnectionStatusTypes.disconnected:
+        break;
+      case CPConnectionStatusTypes.unknown:
+        break;
+    }
   }
 
   void showAlert() {
