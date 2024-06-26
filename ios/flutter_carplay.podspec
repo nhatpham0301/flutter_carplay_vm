@@ -15,7 +15,7 @@ Flutter Apps are now on Apple CarPlay. This package aims to make it safe to use 
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'VietMap', '1.2.0'
+  s.dependency 'VietMap', '2.0.0'
   s.dependency 'VietMapNavigation', '3.0.1'
   s.dependency 'VietMapCoreNavigation', '3.0.0'
   s.platform = :ios, '14.0'
