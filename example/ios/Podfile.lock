@@ -2,18 +2,18 @@ PODS:
   - Flutter (1.0.0)
   - flutter_carplay (1.0.3):
     - Flutter
-    - VietMap (= 1.2.0)
-    - VietMapCoreNavigation (= 2.1.5)
-    - VietMapNavigation (= 2.1.8)
-  - VietMap (1.2.0)
-  - VietMapCoreNavigation (2.1.5):
+    - VietMap (= 2.0.0)
+    - VietMapCoreNavigation (= 3.0.0)
+    - VietMapNavigation (= 3.0.1)
+  - VietMap (2.0.0)
+  - VietMapCoreNavigation (3.0.0):
     - VietMapDirections.swift (~> 2.0.1)
     - VietMapTurf (~> 1.0.2)
   - VietMapDirections.swift (2.0.1):
     - VietMapPolyline (~> 1.0.4)
-  - VietMapNavigation (2.1.8):
-    - VietMap (~> 1.2.0)
-    - VietMapCoreNavigation (= 2.1.5)
+  - VietMapNavigation (3.0.1):
+    - VietMap (~> 2.0.0)
+    - VietMapCoreNavigation (= 3.0.0)
     - VietMapSolar (~> 1.0.3)
     - VietMapSpeech (~> 2.0.1)
   - VietMapPolyline (1.0.6)
@@ -44,11 +44,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_carplay: 1b0ecff0be88e72d2c8d678cd4d8f498eec2e1f8
-  VietMap: a147ccecc4132376c657793af9834b565c85a22a
-  VietMapCoreNavigation: 8ecf7d083f486aba5fa012a4d00f33966c7a82e1
+  flutter_carplay: df8a93de94f2fc9e90dece6f8236c65c0e7c2930
+  VietMap: 1fc4a1e27896a19bc8b8a62e2227b1e0116a698d
+  VietMapCoreNavigation: 1eda679fee729fd4d928af9e4d5a3811124c96d7
   VietMapDirections.swift: d622c98e381281b39f7dcac2b0445ee2f6e1690e
-  VietMapNavigation: fdb7afbb55d2102f861b5f2d0826e2987ce12fca
+  VietMapNavigation: 256fedd742c12fdf501a3bcf28a422896e9d0a0f
   VietMapPolyline: e599c6d0a0a4b3672957881e2f666ba2141a4e83
   VietMapSolar: ef412e72efb00b700f2223e701cae66b446bf17b
   VietMapSpeech: fe5bd0c2ed2757aa7ac59337d74480e25e5a36ed

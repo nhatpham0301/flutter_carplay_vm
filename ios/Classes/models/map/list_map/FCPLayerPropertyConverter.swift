@@ -1,7 +1,7 @@
 import VietMap
 
 class LayerPropertyConverter {
-    class func addSymbolProperties(symbolLayer: MGLSymbolStyleLayer, properties: [String: String]) {
+    class func addSymbolProperties(symbolLayer: MLNSymbolStyleLayer, properties: [String: String]) {
         for (propertyName, propertyValue) in properties {
             let expression = interpretExpression(
                 propertyName: propertyName,
@@ -127,7 +127,7 @@ class LayerPropertyConverter {
         }
     }
 
-    class func addCircleProperties(circleLayer: MGLCircleStyleLayer, properties: [String: String]) {
+    class func addCircleProperties(circleLayer: MLNCircleStyleLayer, properties: [String: String]) {
         for (propertyName, propertyValue) in properties {
             let expression = interpretExpression(
                 propertyName: propertyName,
@@ -167,7 +167,7 @@ class LayerPropertyConverter {
         }
     }
 
-    class func addLineProperties(lineLayer: MGLLineStyleLayer, properties: [String: String]) {
+    class func addLineProperties(lineLayer: MLNLineStyleLayer, properties: [String: String]) {
         for (propertyName, propertyValue) in properties {
             let expression = interpretExpression(
                 propertyName: propertyName,
@@ -215,7 +215,7 @@ class LayerPropertyConverter {
         }
     }
 
-    class func addFillProperties(fillLayer: MGLFillStyleLayer, properties: [String: String]) {
+    class func addFillProperties(fillLayer: MLNFillStyleLayer, properties: [String: String]) {
         for (propertyName, propertyValue) in properties {
             let expression = interpretExpression(
                 propertyName: propertyName,
@@ -247,7 +247,7 @@ class LayerPropertyConverter {
         }
     }
 
-    class func addRasterProperties(rasterLayer: MGLRasterStyleLayer, properties: [String: String]) {
+    class func addRasterProperties(rasterLayer: MLNRasterStyleLayer, properties: [String: String]) {
         for (propertyName, propertyValue) in properties {
             let expression = interpretExpression(
                 propertyName: propertyName,
@@ -280,7 +280,7 @@ class LayerPropertyConverter {
     }
 
     class func addHillshadeProperties(
-        hillshadeLayer: MGLHillshadeStyleLayer,
+        hillshadeLayer: MLNHillshadeStyleLayer,
         properties: [String: String]
     ) {
         for (propertyName, propertyValue) in properties {

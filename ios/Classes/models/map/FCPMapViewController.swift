@@ -14,7 +14,7 @@ import VietMap
 /// A custom CarPlay map view controller.
 class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     /// The map view associated with the map view controller.
-    var mapView: MGLMapView!
+    var mapView: MLNMapView!
     
     var listViewMap: FCPMapListController?
 
@@ -56,7 +56,7 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func startMapView() {
-        mapView = MGLMapView(frame: view.bounds, styleURL: URL(string: _url))
+        mapView = MLNMapView(frame: view.bounds, styleURL: URL(string: _url))
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
         mapView.userTrackingMode = .follow
@@ -69,7 +69,7 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func addPoint(point: FCPMapPointModel) {
-        let annotation = MGLPointAnnotation()
+        let annotation = MLNPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: point.getLat() ?? 0.0, longitude: point.getLng() ?? 0.0)
         annotation.title = point.getTitle() ?? "marker_job"
         annotation.subtitle = point.getSubTitle() ?? "marker_job_check_in"
@@ -88,7 +88,7 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     
     func addPolyline(coordinates: [CLLocationCoordinate2D], colorUser: Bool = false) {
         self.colorUser = colorUser
-        let polyline = MGLPolyline(coordinates: coordinates, count: UInt(coordinates.count))
+        let polyline = MLNPolyline(coordinates: coordinates, count: UInt(coordinates.count))
         mapView.addAnnotation(polyline)
     }
     
@@ -114,7 +114,7 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
     
     func centerMap() {
         if let coordinate = mapView.userLocation?.coordinate {
-            let camera = MGLMapCamera(lookingAtCenter: coordinate, altitude: 250, pitch: mapView.camera.pitch, heading: mapView.camera.heading)
+            let camera = MLNMapCamera(lookingAtCenter: coordinate, altitude: 250, pitch: mapView.camera.pitch, heading: mapView.camera.heading)
             mapView.setCamera(camera, animated: true)
         }
     }
@@ -139,7 +139,7 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
         
         // Update the Map camera position
         let offsetCoordinate = mapView.convert(offset, toCoordinateFrom: mapView)
-        let camera = MGLMapCamera(lookingAtCenter: offsetCoordinate, altitude: mapView.camera.altitude, pitch: mapView.camera.pitch, heading: mapView.camera.heading)
+        let camera = MLNMapCamera(lookingAtCenter: offsetCoordinate, altitude: mapView.camera.altitude, pitch: mapView.camera.pitch, heading: mapView.camera.heading)
         mapView.setCamera(camera, animated: true)
     }
     
@@ -234,12 +234,12 @@ class FCPMapViewController: UIViewController, CLLocationManagerDelegate {
 }
 
 
-extension FCPMapViewController: MGLMapViewDelegate {
-    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+extension FCPMapViewController: MLNMapViewDelegate {
+    func mapView(_ mapView: MLNMapView, strokeColorForShapeAnnotation annotation: MLNShape) -> UIColor {
         return colorUser ? .red : .blue
     }
     
-    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+    func mapView(_ mapView: MLNMapView, imageFor annotation: MLNAnnotation) -> MLNAnnotationImage? {
         let imageName = (annotation.subtitle ?? "marker_job") ?? "marker_job"
         let title = (annotation.title ?? "") ?? ""
         let identifier = imageName + title
@@ -248,7 +248,7 @@ extension FCPMapViewController: MGLMapViewDelegate {
         let size = CGSize(width: 40, height: 70)
         let imageWithLabel = createImageWithLabel(image: image, text: title, size: size)
         
-        let annotationImage = MGLAnnotationImage(image: imageWithLabel, reuseIdentifier: identifier)
+        let annotationImage = MLNAnnotationImage(image: imageWithLabel, reuseIdentifier: identifier)
         return annotationImage
     }
     
