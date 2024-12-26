@@ -17,7 +17,7 @@ Flutter Apps are now on Apple CarPlay. This package aims to make it safe to use 
   s.dependency 'Flutter'
   s.dependency 'VietMap', '2.0.0'
   s.dependency 'VietMapNavigation', '3.1.3'
-  s.dependency 'VietMapCoreNavigation', '3.0.0'
+  s.dependency 'VietMapCoreNavigation', '3.1.0'
   s.platform = :ios, '14.0'
 
   # Flutter.framework does not contain a i386 slice.
